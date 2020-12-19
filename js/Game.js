@@ -116,6 +116,7 @@ class Game {
   wait() {
     console.log("player"+ player.index+" "+player.rank)
     form.hide();
+    form.showResult();
     Player.getPlayerInfo();
     Player.getCarsReached();
     if (allPlayers !== undefined) {
