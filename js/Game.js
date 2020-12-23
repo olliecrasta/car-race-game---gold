@@ -12,36 +12,45 @@ class Game {
 
   }
 
-  update(state) {
+  static update(state) {
     database.ref('/').update({
       gameState: state
     });
   }
 
   async start() {
-    if (gameState === 0 ) {
-      player = new Player();
-      var playerCountRef = await database.ref('playerCount').once("value");
-      if (playerCountRef.exists()) {
-        playerCount = playerCountRef.val();
-        player.getCount();
-      }
+    if (gameState === 0) {
+      
+        var playerCountRef = await database.ref('playerCount').once("value");
+        if (playerCountRef.exists()) {
+          playerCount = playerCountRef.val();
+          
+        }
+
+
+        if(playerCount <4){
+          player = new Player();
+          form = new Form()
+          form.display();
+          car1 = createSprite(100, 200);
+          car1.addImage("car1", car1_img);
+          car2 = createSprite(300, 200);
+          car2.addImage("car2", car2_img);
+          car3 = createSprite(500, 200);
+          car3.addImage("car3", car3_img);
+          car4 = createSprite(700, 200);
+          car4.addImage("car4", car4_img);
+          cars = [car1, car2, car3, car4];
+        }
+        
+        else{
+          form = new Form()
+          form.tooManyError();
+        }
+        
     
     }
-    if(playerCount<=4){
-      form = new Form()
-      form.display();
-      car1 = createSprite(100, 200);
-      car1.addImage("car1", car1_img);
-      car2 = createSprite(300, 200);
-      car2.addImage("car2", car2_img);
-      car3 = createSprite(500, 200);
-      car3.addImage("car3", car3_img);
-      car4 = createSprite(700, 200);
-      car4.addImage("car4", car4_img);
-      cars = [car1, car2, car3, car4];
-      }
-      //else too Many error will be called
+  
    
   }
 
@@ -59,7 +68,7 @@ class Game {
 
 
       //x and y position of the cars
-      var x = 175;
+      var x = width/7;
       var y;
 
       for (var plr in allPlayers) {
@@ -67,7 +76,7 @@ class Game {
         index = index + 1;
 
         //position the cars a little away from each other in x direction
-        x = x + 200;
+        x = x + width/6.8;
         //use data form the database to display the cars in y direction
         y = displayHeight - allPlayers[plr].distance - 500;
         cars[index - 1].x = x;
@@ -127,7 +136,7 @@ class Game {
       var index = 0;
 
       //x and y position of the cars
-      var x = 175;
+      var x = width/7;
       var y;
 
       for (var plr in allPlayers) {
@@ -135,7 +144,7 @@ class Game {
         index = index + 1;
 
         //position the cars a little away from each other in x direction
-        x = x + 200;
+        x = x + width/6.8;
         //use data form the database to display the cars in y direction
         y = displayHeight - allPlayers[plr].distance - 500;
         cars[index - 1].x = x;

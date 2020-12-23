@@ -15,6 +15,7 @@ class Form {
     this.button.hide();
     this.input.hide();
     this.title.hide();
+    this.tooMany.hide();
   }
 
   display(){
@@ -33,7 +34,7 @@ class Form {
       player.index = playerCount;
       player.rank=0;
       player.update();
-      player.updateCount(playerCount);
+      Player.updateCount(playerCount);
       
       this.greeting.html("Hello " + player.name)
       this.greeting.position(displayWidth/2 - 70, displayHeight/4);
@@ -41,8 +42,8 @@ class Form {
 
     this.reset.position (displayWidth-80,30);
     this.reset.mousePressed(()=>{
-        player.updateCount(0);
-        game.update(0)
+        Player.updateCount(0);
+        Game.update(0)
         Player.updateCarsReached(0);
 
     })
@@ -53,7 +54,18 @@ class Form {
     this.reachedPos.html("Game Over! Your position : " + player.rank)
   }
   tooManyError(){
-    this.tooMany.position(displayWidth/2 - 40 , displayHeight/2 - 80);
-    this.tooMany.html('Sorry, try to enter the game next time. ');
+    this.tooMany.position(displayWidth/3 , displayHeight/2 - 80);
+    this.tooMany.html('Sorry racing track is full. Please enter the next round. ');
+    
+    this.reset.position (displayWidth-80,30);
+    this.reset.mousePressed(()=>{
+        Player.updateCount(0);
+        Game.update(0)
+        Player.updateCarsReached(0);
+
+    })
+
   }
 }
+
+

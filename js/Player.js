@@ -6,14 +6,14 @@ class Player {
     this.rank=0;
   }
 
-  getCount(){
+  static getCount(){
     var playerCountRef = database.ref('playerCount');
     playerCountRef.on("value",(data)=>{
       playerCount = data.val();
     })
   }
 
-  updateCount(count){
+  static updateCount(count){
     database.ref('/').update({
       playerCount: count
     });
@@ -48,3 +48,7 @@ class Player {
     })
   }
 }
+
+
+
+

@@ -25,9 +25,13 @@ function preload(){
 function setup(){
   canvas = createCanvas(windowWidth-50 , windowHeight-50);
   database = firebase.database();
+
+
   game = new Game();
   game.getState();
+  Player.getCount();
   game.start();
+
   console.log("disp ht "+displayHeight)
 }
 
@@ -35,7 +39,7 @@ function setup(){
 function draw(){
 
   if(playerCount===4 && gameState ===0){
-    game.update(1);
+    Game.update(1);
   }
   if(gameState === 1 && player.rank===0){
     clear();
